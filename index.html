@@ -32,7 +32,7 @@
     </div>
 
     <div class="main-content">
-      <div class="list-item">
+      <div class="card-item">
         <div>
           <input type="checkbox" name="checkbox" id="checkbox" />
         </div>
@@ -53,24 +53,43 @@
           </select>
         </div>
       </div>
-
-      <div class="list-item"></div>
-      <div class="list-item"></div>
-      <div class="list-item"></div>
-      <div class="list-item"></div>
+      <div class="add-new-task">
+        <button>
+          <span class="material-symbols-outlined"> add_circle </span>
+        </button>
+        <span>Add Task</span>
+      </div>
     </div>
 
     <!--------------------- form  ---------------->
-    <form action="">
+    <form id="form" action="">
       <div class="title">
         <label for="title">Title:</label>
-        <input type="tel" name="title" id="title" />
+        <input type="text" name="title" id="title" />
       </div>
       <div class="details">
         <label for="details">Details(optional):</label>
         <input type="text" name="details" id="details" />
       </div>
-      <div>
+
+      <div class="priority">
+        <p>Priority: </p>
+        <div>
+          <label for="low">Low</label>
+          <input type="radio" name="priority" id="low" />
+        </div>
+        <div>
+          <label for="normal">Normal</label>
+          <input type="radio" name="priority" id="normal" />
+        </div>
+        <div>
+          <label for="high">High</label>
+          <input type="radio" name="priority" id="high" />
+        </div>
+      
+      </div>
+
+      <div class="due-date-input">
         <label for="due-date">Due Date:</label>
         <input type="date" name="due-date" id="due-date" />
       </div>

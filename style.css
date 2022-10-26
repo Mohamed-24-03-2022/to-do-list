@@ -67,26 +67,35 @@ ul a {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin: 0 15px;
 }
-.list-item {
+.card-item {
   display: grid;
   grid-template-columns: 50px 2fr 1fr 0.3fr;
   align-items: flex-start;
   padding: 15px;
   border: 2px solid;
+  user-select: none;
+}
+.card-item:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease-in-out;
+}
+.card-item:active {
+  transform: translateY(5px);
 }
 .task .title {
-    font-size: 18px;
-    font-weight: 600;
-  }
+  font-size: 18px;
+  font-weight: 600;
+}
 .task .details {
   font-size: 14px;
 }
 .due-date p {
-    width: max-content;
-    padding: 5px;
-    border: 1px solid #000000;
-    border-radius: 10px;
+  width: max-content;
+  padding: 5px;
+  border: 1px solid #000000;
+  border-radius: 10px;
 }
 .main-content .settings {
   display: flex;
@@ -103,6 +112,23 @@ ul a {
 .main-content .settings select:focus {
   outline: none;
 }
+/********************** new task container ********************/
+.add-new-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+}
+.add-new-task:hover {
+  background-color: rgb(245, 240, 220);
+}
+.add-new-task button {
+  background-color: inherit;
+  border: none;
+  padding: 0 5px;
+}
+
 /********************** from styling ********************/
 form {
   width: 300px;
@@ -114,7 +140,7 @@ form {
   position: absolute;
   background-color: #a9a9a9;
   /* visibility */
-  visibility: hidden; 
+  /* visibility: hidden;  */
   left: calc(50% - 150px);
   top: calc(20%);
 }
@@ -123,10 +149,34 @@ form input {
 }
 form div {
   width: 100%;
-  padding: 15px;
+  padding: 15px 0;
   display: flex;
   flex-direction: column;
 }
+div.priority {
+  align-items: center; 
+}
+div.priority p {
+  align-self: flex-start; 
+}
+div.priority div {
+  flex-direction: row;
+  width: 70%;
+}
+div.priority div label {
+  width: 100px;
+}
+div.due-date-input {
+  flex-direction: row;
+}
+div.due-date-input label {
+  width: 100px;
+}
+div.due-date-input input {
+width: 20px;
+}
+
+
 div.buttons {
   flex-direction: row;
   justify-content: space-between;
