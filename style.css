@@ -103,14 +103,25 @@ ul a {
 .main-content .settings span {
   cursor: pointer;
 }
-.main-content .settings select {
-  width: 15px;
-  height: 25px;
-  border: none;
-  cursor: pointer;
+.settings {
+  position: relative;
 }
-.main-content .settings select:focus {
-  outline: none;
+.settings #select {
+  background-color: #b7b7b7;
+  position: absolute;
+  cursor: pointer;
+  transform: translateY(-60px) translateX(-73px);
+  border-radius: 5px;
+}
+.show {
+  opacity: 0;
+}
+#select option {
+  padding: 5px 10px;
+  transition: 200ms ease-in-out;
+}
+#select option:hover {
+  background-color: antiquewhite;
 }
 /********************** new task container ********************/
 .add-new-task {
@@ -154,10 +165,10 @@ form div {
   flex-direction: column;
 }
 div.priority {
-  align-items: center; 
+  align-items: center;
 }
 div.priority p {
-  align-self: flex-start; 
+  align-self: flex-start;
 }
 div.priority div {
   flex-direction: row;
@@ -173,9 +184,8 @@ div.due-date-input label {
   width: 100px;
 }
 div.due-date-input input {
-width: 20px;
+  width: 20px;
 }
-
 
 div.buttons {
   flex-direction: row;

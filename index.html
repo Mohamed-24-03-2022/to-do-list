@@ -47,10 +47,10 @@
           <!-- google icon -->
           <span class="material-symbols-outlined"> settings </span>
           <!-- datalist dropdown -->
-          <select id="settings">
-            <option value="edit">Edit</option>
-            <option value="remove">Remove</option>
-          </select>
+          <div id="select" class="show">
+            <option class="edit">Edit</option>
+            <option class="remove">Remove</option>
+          </div>
         </div>
       </div>
       <div class="add-new-task">
@@ -80,7 +80,7 @@
         </div>
         <div>
           <label for="normal">Normal</label>
-          <input type="radio" name="priority" id="normal" />
+          <input type="radio" name="priority" id="normal" checked />
         </div>
         <div>
           <label for="high">High</label>
