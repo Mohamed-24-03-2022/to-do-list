@@ -13,6 +13,7 @@ class todoGenerator {
     }
 }
 const mainContent = document.querySelector(".main-content");
+const taskList = [];
 
 const createHtmlElements = (newTask) => {
     // card item
@@ -20,13 +21,7 @@ const createHtmlElements = (newTask) => {
     cardContainer.classList.add("card-item");
 
     // priority effect
-    if (priorityCheck() === "low") {
-        cardContainer.style.backgroundColor = "inherit";
-    } else if (priorityCheck() === "normal") {
-        cardContainer.style.backgroundColor = "#00ff0069";
-    } else if (priorityCheck() === "high") {
-        cardContainer.style.backgroundColor = "#ff000091";
-    }
+    priorityEffect(cardContainer);
 
     // checkbox
     const checkboxContainer = document.createElement("div");
@@ -90,6 +85,15 @@ const createHtmlElements = (newTask) => {
     editAndRemoveTask();
 };
 
+const priorityEffect = (cardContainer) => {
+    if (priorityCheck() === "low") {
+        cardContainer.style.backgroundColor = "inherit";
+    } else if (priorityCheck() === "normal") {
+        cardContainer.style.backgroundColor = "#00ff0069";
+    } else if (priorityCheck() === "high") {
+        cardContainer.style.backgroundColor = "#ff000091";
+    }
+}
 const priorityCheck = () => {
     const lowPriority = document.querySelector("#low");
     const normalPriority = document.querySelector("#normal");
@@ -120,6 +124,7 @@ const createTask = (() => {
             dueDateInput.value,
             priorityCheck()
         );
+        taskList.push(newTask);
         console.log(newTask);
         createHtmlElements(newTask);
         form.remove();
@@ -133,26 +138,68 @@ const createTask = (() => {
     return { form };
 })();
 
-const addNewTask = (() => {
+const addNewTask = () => {
     const addTaskBtn = document.querySelector(".add-new-task");
     addTaskBtn.addEventListener("click", () => {
         mainContent.appendChild(createTask.form);
+        const changeBtn = document.querySelector(".change");
+        changeBtn.style.visibility = "hidden";
     });
-})();
-
+};
+addNewTask();
 
 const editAndRemoveTask = () => {
     const settingsIcon = document.querySelector(".settings span");
     const settingsContainer = document.querySelector("#select");
     const removeOption = document.querySelector("#select .remove");
+    const editOption = document.querySelector("#select .edit");
     const cardItem = document.querySelector(".card-item");
 
     settingsIcon.addEventListener("click", () => {
         settingsContainer.classList.toggle("show");
     });
 
+    // remove option
     removeOption.addEventListener("click", () => {
         cardItem.remove();
+    });
+
+    // edit option
+    editOption.addEventListener("click", (e) => {
+        settingsContainer.classList.toggle("show");
+        mainContent.appendChild(createTask.form);
+
+        const changeBtn = document.querySelector(".change");
+        changeBtn.style.visibility = "visible";
+
+        taskList.forEach((task) => {
+            const targetedTaskTitle = e.target.parentElement.parentElement.parentElement.children[1].children[0].textContent;
+
+            if (task.title === targetedTaskTitle) {
+                const titleInput = document.querySelector("#title");
+                const detailsInput = document.querySelector("#details");
+                const dueDateInput = document.querySelector("#due-date");
+                const titleText = document.querySelector(".task .title");
+                const detailsText = document.querySelector(".task .details");
+                const dueDateText = document.querySelector(".due-date p");
+                const cardItem = document.querySelector(".card-item");
+
+                changeBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    task.title = titleInput.value;
+                    task.details = detailsInput.value;
+                    task.dueDate = dueDateInput.value;
+                    task.priority = priorityCheck();
+
+                    titleText.textContent = task.title;
+                    detailsText.textContent = task.details;
+                    dueDateText.textContent = task.dueDate;
+                    priorityEffect(cardItem);
+                    createTask.form.remove();
+                });
+            }
+        });
     });
 };
 editAndRemoveTask();
