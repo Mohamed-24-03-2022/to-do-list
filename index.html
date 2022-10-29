@@ -28,12 +28,14 @@
         <a href=""> <li class="project">Study</li></a>
         <a href=""> <li class="project">Home</li></a>
         <a href=""> <li class="project">Gym</li></a>
+        <a href=""> <li class="project">Add a Project</li></a>
       </ul>
     </div>
 
     <div class="main-content">
       <!-- Card item -->
-      <div class="card-item">
+      
+      <!-- <div class="card-item">
         <div>
           <input type="checkbox" name="checkbox" id="checkbox" />
         </div>
@@ -44,16 +46,17 @@
         <div class="due-date">
           <p>Oct 29th</p>
         </div>
-        <div class="settings">
+        <div class="settings"> -->
           <!-- google icon -->
-          <span class="material-symbols-outlined"> settings </span>
+          <!-- <span class="material-symbols-outlined"> settings </span> -->
           <!-- datalist dropdown -->
-          <div id="select" class="show">
+          <!-- <div id="select" class="show">
             <option class="edit">Edit</option>
             <option class="remove">Remove</option>
           </div>
         </div>
-      </div>
+      </div> -->
+
       <!-- Adding a new task -->
       <div class="add-new-task">
         <button>
@@ -67,7 +70,7 @@
     <form id="form" action="">
       <div class="title">
         <label for="title">Title:</label>
-        <input type="text" name="title" id="title" />
+        <input type="text" name="title" id="title" minlength="4" required/>
       </div>
       <div class="details">
         <label for="details">Details(optional):</label>
@@ -78,15 +81,15 @@
         <p>Priority: </p>
         <div>
           <label for="low">Low</label>
-          <input type="radio" name="priority" id="low" />
+          <input type="radio" name="priority" id="low" required />
         </div>
         <div>
           <label for="normal">Normal</label>
-          <input type="radio" name="priority" id="normal" checked />
+          <input type="radio" name="priority" id="normal" required/>
         </div>
         <div>
           <label for="high">High</label>
-          <input type="radio" name="priority" id="high" />
+          <input type="radio" name="priority" id="high" required/>
         </div>
       
       </div>

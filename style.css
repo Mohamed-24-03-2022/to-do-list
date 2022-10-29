@@ -151,7 +151,7 @@ form {
   position: absolute;
   background-color: #a9a9a9;
   /* visibility */
-  /* visibility: hidden;  */
+  visibility: hidden; 
   left: calc(50% - 150px);
   top: calc(20%);
 }

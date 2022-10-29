@@ -12,8 +12,25 @@ class todoGenerator {
         this.isChecked = false;
     }
 }
+
 const mainContent = document.querySelector(".main-content");
-const taskList = [];
+const tasksList = [];
+
+const restartFormValue = () => {
+    const titleInput = document.querySelector("#title");
+    const detailsInput = document.querySelector("#details");
+    const dueDateInput = document.querySelector("#due-date");
+    const radioBtn = {
+        low: document.querySelector("#low"),
+        normal: document.querySelector("#normal"),
+        high: document.querySelector("#high"),
+    };
+
+    titleInput.value = "";
+    detailsInput.value = "";
+    dueDateInput.value = "";
+    radioBtn.low.checked = true;
+};
 
 const createHtmlElements = (newTask) => {
     // card item
@@ -21,7 +38,7 @@ const createHtmlElements = (newTask) => {
     cardContainer.classList.add("card-item");
 
     // priority effect
-    priorityEffect(cardContainer);
+    priorityEffect(cardContainer, newTask.priority);
 
     // checkbox
     const checkboxContainer = document.createElement("div");
@@ -36,17 +53,17 @@ const createHtmlElements = (newTask) => {
     taskContainer.classList.add("task");
     const title = document.createElement("p");
     title.classList.add("title");
-    title.textContent = newTask.title; //? fill it later from the form
+    title.textContent = newTask.title;
     const details = document.createElement("p");
     details.classList.add("details");
-    details.textContent = newTask.details; //? fill it later from the form
+    details.textContent = newTask.details;
     taskContainer.prepend(title, details);
 
     // due date
     const dueDateContainer = document.createElement("div");
     dueDateContainer.classList.add("due-date");
     const dueDate = document.createElement("p");
-    dueDate.textContent = newTask.dueDate; //? fill it later from the form
+    dueDate.textContent = newTask.dueDate;
     dueDateContainer.prepend(dueDate);
 
     // settings
@@ -56,9 +73,9 @@ const createHtmlElements = (newTask) => {
     googleIcon.classList.add("material-symbols-outlined");
     googleIcon.textContent = "settings";
 
-    const select = document.createElement("div");
-    select.setAttribute("id", "select");
-    select.classList.add("show");
+    const selectOption = document.createElement("div");
+    selectOption.setAttribute("id", "select");
+    selectOption.classList.add("show");
 
     const option1 = document.createElement("option");
     option1.classList.add("edit");
@@ -68,10 +85,11 @@ const createHtmlElements = (newTask) => {
     option2.classList.add("remove");
     option2.textContent = "remove";
 
-    select.prepend(option1, option2);
-    settingsContainer.prepend(googleIcon, select);
+    selectOption.prepend(option1, option2);
+    settingsContainer.prepend(googleIcon, selectOption);
+    selectOption.remove();
 
-    // append all containers
+    // append all containers into the task
     cardContainer.prepend(
         checkboxContainer,
         taskContainer,
@@ -80,24 +98,35 @@ const createHtmlElements = (newTask) => {
     );
 
     // append the task to the main container
-    mainContent.prepend(cardContainer);
+    mainContent.appendChild(cardContainer);
 
-    editAndRemoveTask();
+    const task = {
+        cardContainer,
+        googleIcon,
+        settingsContainer,
+        selectOption,
+        option1,
+        option2,
+    };
+    checkTask(checkbox, option2);
+    chooseOption(task);
+    removeTask(task);
+    // editTask(task);
 };
-
-const priorityEffect = (cardContainer) => {
-    if (priorityCheck() === "low") {
+const priorityEffect = (cardContainer, priority) => {
+    if (priority === "low") {
         cardContainer.style.backgroundColor = "inherit";
-    } else if (priorityCheck() === "normal") {
+    } else if (priority === "normal") {
         cardContainer.style.backgroundColor = "#00ff0069";
-    } else if (priorityCheck() === "high") {
+    } else if (priority === "high") {
         cardContainer.style.backgroundColor = "#ff000091";
     }
-}
+};
 const priorityCheck = () => {
     const lowPriority = document.querySelector("#low");
     const normalPriority = document.querySelector("#normal");
     const highPriority = document.querySelector("#high");
+    if (!lowPriority || !normalPriority || !highPriority) return;
     if (lowPriority.checked === true) {
         return "low";
     } else if (normalPriority.checked === true) {
@@ -106,12 +135,19 @@ const priorityCheck = () => {
         return "high";
     }
 };
-
 const createTask = (() => {
+    const addTaskCard = document.querySelector(".add-new-task");
+    const form = document.querySelector("#form");
     const addBtn = document.querySelector(".add");
     const cancelBtn = document.querySelector(".cancel");
-    const form = document.querySelector("#form");
-    form.remove();
+
+    addTaskCard.addEventListener("click", () => {
+        form.style.visibility = "visible";
+        mainContent.prepend(form);
+        restartFormValue();
+        const changeBtn = document.querySelector(".change");
+        changeBtn.disabled = true;
+    });
 
     addBtn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -124,82 +160,95 @@ const createTask = (() => {
             dueDateInput.value,
             priorityCheck()
         );
-        taskList.push(newTask);
-        console.log(newTask);
+        tasksList.push(newTask);
         createHtmlElements(newTask);
-        form.remove();
+        createTask.form.remove();
     });
 
     cancelBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        form.remove();
+        createTask.form.remove();
     });
 
     return { form };
 })();
-
-const addNewTask = () => {
-    const addTaskBtn = document.querySelector(".add-new-task");
-    addTaskBtn.addEventListener("click", () => {
-        mainContent.appendChild(createTask.form);
-        const changeBtn = document.querySelector(".change");
-        changeBtn.style.visibility = "hidden";
+const chooseOption = (task) => {
+    task.googleIcon.addEventListener("click", () => {
+        task.selectOption.classList.toggle("show");
+        task.settingsContainer.prepend(task.selectOption);
+        editTask(task);
     });
 };
-addNewTask();
-
-const editAndRemoveTask = () => {
-    const settingsIcon = document.querySelector(".settings span");
-    const settingsContainer = document.querySelector("#select");
-    const removeOption = document.querySelector("#select .remove");
-    const editOption = document.querySelector("#select .edit");
-    const cardItem = document.querySelector(".card-item");
-
-    settingsIcon.addEventListener("click", () => {
-        settingsContainer.classList.toggle("show");
+const removeTask = (task) => {
+    task.option2.addEventListener("click", () => {
+        task.selectOption.remove();
+        task.cardContainer.remove();
     });
-
-    // remove option
-    removeOption.addEventListener("click", () => {
-        cardItem.remove();
+};
+const checkTask = (checkbox, removeOption) => {
+    checkbox.addEventListener("click", () => {
+        if (checkbox.checked === true) {
+            removeOption.click();
+        }
     });
+};
 
-    // edit option
+const target = {};
+const editTask = (task) => {
+    const editOption = document.querySelector("option.edit");
+
     editOption.addEventListener("click", (e) => {
-        settingsContainer.classList.toggle("show");
-        mainContent.appendChild(createTask.form);
+        task.selectOption.classList.toggle("show");
+        createTask.form.style.visibility = "visible";
+        mainContent.append(createTask.form);
+        restartFormValue();
+        if (!e.target.parentElement.parentElement.parentElement) return;
+        target.container = e.target.parentElement.parentElement.parentElement;
+        target.title =
+            e.target.parentElement.parentElement.parentElement.children[1].children[0];
+        target.details =
+            e.target.parentElement.parentElement.parentElement.children[1].children[1];
+        target.dueDate =
+            e.target.parentElement.parentElement.parentElement.children[2].children[0];
 
-        const changeBtn = document.querySelector(".change");
-        changeBtn.style.visibility = "visible";
-
-        taskList.forEach((task) => {
-            const targetedTaskTitle = e.target.parentElement.parentElement.parentElement.children[1].children[0].textContent;
-
-            if (task.title === targetedTaskTitle) {
-                const titleInput = document.querySelector("#title");
-                const detailsInput = document.querySelector("#details");
-                const dueDateInput = document.querySelector("#due-date");
-                const titleText = document.querySelector(".task .title");
-                const detailsText = document.querySelector(".task .details");
-                const dueDateText = document.querySelector(".due-date p");
-                const cardItem = document.querySelector(".card-item");
-
-                changeBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-
-                    task.title = titleInput.value;
-                    task.details = detailsInput.value;
-                    task.dueDate = dueDateInput.value;
-                    task.priority = priorityCheck();
-
-                    titleText.textContent = task.title;
-                    detailsText.textContent = task.details;
-                    dueDateText.textContent = task.dueDate;
-                    priorityEffect(cardItem);
-                    createTask.form.remove();
-                });
-            }
-        });
+        task.selectOption.remove();
+        saveChange();
     });
 };
-editAndRemoveTask();
+const saveChange = () => {
+    const titleInput = document.querySelector("#title");
+    const detailsInput = document.querySelector("#details");
+    const dueDateInput = document.querySelector("#due-date");
+    const changeBtn = document.querySelector(".change");
+    changeBtn.disabled = false;
+
+    changeBtn.addEventListener("click", (btnEvt) => {
+        btnEvt.stopPropagation();
+        btnEvt.preventDefault();
+        console.log(target);
+        for (const taskList of tasksList) {
+            if (!target.title) break;
+            if (taskList.title === target.title.textContent) {
+                taskList.title = titleInput.value;
+                taskList.details = detailsInput.value;
+                taskList.dueDate = dueDateInput.value;
+                taskList.priority = priorityCheck();
+                target.title.textContent = taskList.title;
+                target.details.textContent = taskList.details;
+                target.dueDate.textContent = taskList.dueDate;
+                priorityEffect(target.container, taskList.priority);
+                createTask.form.remove();
+            }
+        }
+    }, { once: true });
+};
+const generateSampleData = (() => {
+    const sampleTask1 = new todoGenerator("Eat", "", "", "low");
+    const sampleTask2 = new todoGenerator("Sleep", "", "", "low");
+    const sampleTask3 = new todoGenerator("Gym", "", "", "normal");
+    const sampleTasks = [sampleTask1, sampleTask2, sampleTask3];
+    for (const sampleTask of sampleTasks) {
+        tasksList.push(sampleTask);
+        createHtmlElements(sampleTask);
+    }
+})();
