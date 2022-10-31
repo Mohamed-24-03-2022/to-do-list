@@ -27,7 +27,15 @@
         <a href=""> <li class="project study">Study</li></a>
         <a href=""> <li class="project home">Home</li></a>
         <a href=""> <li class="project gym">Gym</li></a>
-        <a href=""> <li class="project new">Add a Project</li></a>
+
+        <li class="project new"> Add a Project </li>
+        <div class="new-project show">
+          <input type="text" name="new-project" id="new-project" minlength="2" maxlength="15" pattern="^[a-zA-Z]*$" required />
+          <button>Add Project</button>
+        </div>
+        <div class="custom-projects">
+          <p>Custom Projects</p>
+        </div>
       </ul>
     </div>
 
@@ -41,48 +49,15 @@
       </div>
 
       <div class="work-project project-container">
-        <!-- <div class="card-item">
-          <div>
-            <input type="checkbox" name="checkbox" id="checkbox" />
-          </div>
-          <div class="task">
-            <p class="title">Eat</p>
-            <p class="details">Eat a healthy breakfast</p>
-          </div>
-          <div class="due-date">
-            <p>Oct 29th</p>
-          </div>
-          <div class="settings">
-            <span class="material-symbols-outlined"> settings </span>
-            <div id="select" class="show">
-              <option class="edit">Edit</option>
-              <option class="remove">Remove</option>
-            </div>
-          </div>
-        </div> -->
       </div>
-
-      <!-- <div class="project-container study-project">
-
-      </div>
-
-      <div class="project-container home-project">
-
-      </div>
-
-      <div class="project-container gym-project">
-
-      </div> -->
-
-
 
     </div>
 
     <!--------------------- form  ---------------->
-    <form id="form" action="">
+    <form id="form" action="/">
       <div class="title">
         <label for="title">Title:</label>
-        <input type="text" name="title" id="title" minlength="4" maxlength="10" required />
+        <input type="text" name="title" id="title" minlength="2" maxlength="15" pattern="^[a-zA-Z]*$" required />
       </div>
       <div class="details">
         <label for="details">Details(optional):</label>
@@ -110,9 +85,9 @@
         <input type="date" name="due-date" id="due-date" />
       </div>
       <div class="buttons">
-        <button class="add">Add</button>
-        <button class="change">Save Change</button>
-        <button class="cancel">Cancel</button>
+        <button class="add" type="button">Add</button>
+        <button class="change" type="button">Save Change</button>
+        <button class="cancel" type="button">Cancel</button>
       </div>
     </form>
 
