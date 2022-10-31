@@ -36,9 +36,13 @@ const saveChange = () => {
     const form = document.querySelector("#form");
     changeBtn.disabled = false;
 
-    changeBtn.addEventListener("click", (btnEvt) => {
-        btnEvt.stopPropagation();
-        btnEvt.preventDefault();
+    changeBtn.addEventListener("click", () => {
+        // make the form validation work without submitting ti
+        const checkStatus = form.checkValidity();
+        form.reportValidity();
+        if (!checkStatus) {
+            return;
+        }
         for (const taskList of tasksList) {
             if (!target.title) break;
             if (taskList.title === target.title.textContent) {
@@ -56,7 +60,7 @@ const saveChange = () => {
                 form.remove();
             }
         }
-    }, { once: true });
+    });
 };
 
 export { editTask, saveChange }

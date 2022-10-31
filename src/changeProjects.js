@@ -1,56 +1,60 @@
-const changeProjects = () => {
+
+const removeProjects = () => {
     const mainContent = document.querySelector(".main-content");
+    for (let i = 1; i <= mainContent.children.length; i++) {
+        const element = mainContent.children[i];
+        // console.log("its the element log ", element);
+        element.remove();
+    }
+};
+
+const addEventToProjects = (projectBtn, projectContainer) => {
+    const mainContent = document.querySelector(".main-content");
+    projectBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        removeProjects();
+        mainContent.appendChild(projectContainer);
+    });
+};
+
+
+const changeProjects = () => {
     const workProjectBtn = document.querySelector(".work");
     const studyProjectBtn = document.querySelector(".study");
     const homeProjectBtn = document.querySelector(".home");
     const gymProjectBtn = document.querySelector(".gym");
-    const addProjectBtn = document.querySelector(".new");
 
-    const workProjectContainer = document.createElement("div");
-    workProjectContainer.classList.add("work-project");
+    const createProjectContainer = (className) => {
+        const ProjectContainerName = document.createElement("div");
+        ProjectContainerName.classList.add(className);
+        return ProjectContainerName;
+    };
 
-    const studyProjectContainer = document.createElement("div");
-    studyProjectContainer.classList.add("study-project");
+    const workProjectContainer = createProjectContainer("work-project");
+    const studyProjectContainer = createProjectContainer("study-project");
+    const homeProjectContainer = createProjectContainer("home-project");
+    const gymProjectContainer = createProjectContainer("gym-project");
 
-    const homeProjectContainer = document.createElement("div");
-    homeProjectContainer.classList.add("home-project");
-
-    const gymProjectContainer = document.createElement("div");
-    gymProjectContainer.classList.add("gym-project");
-
-    const projects = [workProjectContainer, studyProjectContainer, homeProjectContainer, gymProjectContainer]
+    const projects = [
+        workProjectContainer,
+        studyProjectContainer,
+        homeProjectContainer,
+        gymProjectContainer,
+    ];
     for (const project of projects) {
         project.classList.add("project-container");
     }
 
-    const removeProjects = () => {
-        for (let i = 1; i <= mainContent.children.length; i++) {
-            const element = mainContent.children[i];
-            element.remove()
-        }
-    }
-
-    workProjectBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        removeProjects();
-        mainContent.appendChild(workProjectContainer);
-    });
+    addEventToProjects(workProjectBtn, workProjectContainer);
     workProjectBtn.click();
-
-    studyProjectBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        removeProjects();
-        mainContent.appendChild(studyProjectContainer);
-    });
-    homeProjectBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        removeProjects();
-        mainContent.appendChild(homeProjectContainer);
-    });
-    gymProjectBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        removeProjects();
-        mainContent.appendChild(gymProjectContainer);
-    });
+    addEventToProjects(studyProjectBtn, studyProjectContainer);
+    addEventToProjects(homeProjectBtn, homeProjectContainer);
+    addEventToProjects(gymProjectBtn, gymProjectContainer);
 };
-export { changeProjects };
+
+
+export {
+    changeProjects,
+    removeProjects,
+    addEventToProjects
+};

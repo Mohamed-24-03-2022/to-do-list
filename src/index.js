@@ -7,7 +7,7 @@ import "./style.css";
 import { createTaskHtmlElements, restartFormValue } from "./createTaskHtmlElements.js";
 import { priorityCheck } from "./priority.js";
 import { changeProjects } from "./changeProjects.js";
-
+import { createProject } from "./createProject.js";
 const tasksList = [];
 export { tasksList };
 
@@ -21,7 +21,6 @@ class todoGenerator {
         this.isChecked = false;
     }
 }
-
 const createTask = () => {
     const mainContent = document.querySelector(".main-content");
     const addTaskCard = document.querySelector(".add-new-task");
@@ -39,7 +38,13 @@ const createTask = () => {
     });
 
     addBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+        // make the form validation work without submitting ti
+        const checkStatus = form.checkValidity();
+        form.reportValidity();
+        if (!checkStatus) {
+            console.log("HEEEEEEEy");
+            return
+        }
         const titleInput = document.querySelector("#title");
         const detailsInput = document.querySelector("#details");
         const dueDateInput = document.querySelector("#due-date");
@@ -68,11 +73,6 @@ const createTask = () => {
     });
 
 };
-createTask();
-
-
-changeProjects();
-
 const generateSampleData = () => {
     const sampleTask1 = new todoGenerator("Eat", "", "", "low");
     const sampleTask2 = new todoGenerator("Sleep", "", "", "low");
@@ -85,6 +85,9 @@ const generateSampleData = () => {
         createTaskHtmlElements(sampleTask, workProjectContainer);
     }
 };
-generateSampleData();
 
+createTask();
+changeProjects();
+generateSampleData();
+createProject();
 
