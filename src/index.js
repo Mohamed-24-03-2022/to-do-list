@@ -18,7 +18,6 @@ class todoGenerator {
         this.details = details;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.isChecked = false;
     }
 }
 const createTask = () => {
@@ -42,7 +41,6 @@ const createTask = () => {
         const checkStatus = form.checkValidity();
         form.reportValidity();
         if (!checkStatus) {
-            console.log("HEEEEEEEy");
             return
         }
         const titleInput = document.querySelector("#title");
