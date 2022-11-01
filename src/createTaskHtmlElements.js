@@ -1,6 +1,6 @@
 import { priorityEffect } from "./priority.js";
 import { editTask } from "./editTask.js";
-
+import { format } from 'date-fns';
 
 const createTaskHtmlElements = (newTask, projectContainer) => {
     // card item
@@ -33,7 +33,9 @@ const createTaskHtmlElements = (newTask, projectContainer) => {
     const dueDateContainer = document.createElement("div");
     dueDateContainer.classList.add("due-date");
     const dueDate = document.createElement("p");
-    dueDate.textContent = newTask.dueDate;
+    // date formatting 
+    const formattedDate = format(newTask.dueDate, 'do LLL yy');
+    dueDate.textContent = formattedDate;
     dueDateContainer.prepend(dueDate);
 
     // settings

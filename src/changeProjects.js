@@ -3,7 +3,6 @@ const removeProjects = () => {
     const mainContent = document.querySelector(".main-content");
     for (let i = 1; i <= mainContent.children.length; i++) {
         const element = mainContent.children[i];
-        // console.log("its the element log ", element);
         element.remove();
     }
 };
@@ -34,7 +33,6 @@ const changeProjects = () => {
     const studyProjectContainer = createProjectContainer("study-project");
     const homeProjectContainer = createProjectContainer("home-project");
     const gymProjectContainer = createProjectContainer("gym-project");
-
     const projects = [
         workProjectContainer,
         studyProjectContainer,
@@ -44,7 +42,6 @@ const changeProjects = () => {
     for (const project of projects) {
         project.classList.add("project-container");
     }
-
     addEventToProjects(workProjectBtn, workProjectContainer);
     workProjectBtn.click();
     addEventToProjects(studyProjectBtn, studyProjectContainer);

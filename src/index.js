@@ -3,6 +3,7 @@
 //? I will separate DOM from the logic (can be ran on console or using DOM)
 //todo Implement Firebase on this project
 
+import { format } from 'date-fns';
 import "./style.css";
 import { createTaskHtmlElements, restartFormValue } from "./createTaskHtmlElements.js";
 import { priorityCheck } from "./priority.js";
@@ -26,12 +27,15 @@ const createTask = () => {
     const form = document.querySelector("#form");
     const addBtn = document.querySelector(".add");
     const cancelBtn = document.querySelector(".cancel");
+    const changeBtn = document.querySelector(".change");
+    const dueDateInput = document.querySelector("#due-date");
 
     addTaskCard.addEventListener("click", () => {
         form.style.visibility = "visible";
         mainContent.prepend(form);
         restartFormValue();
-        const changeBtn = document.querySelector(".change");
+        // default date as today's date
+        dueDateInput.value = format(new Date(), 'yyyy-MM-dd')
         changeBtn.disabled = true;
         addBtn.disabled = false;
     });
@@ -43,23 +47,31 @@ const createTask = () => {
         if (!checkStatus) {
             return
         }
+
         const titleInput = document.querySelector("#title");
         const detailsInput = document.querySelector("#details");
-        const dueDateInput = document.querySelector("#due-date");
+        // date formatting
+        const dueDateInputSplitted = dueDateInput.value.split("");
+        const date = {
+            year: dueDateInputSplitted.splice(0, 4).join(""),
+            month: dueDateInputSplitted.splice(1, 2).join(""),
+            day: dueDateInputSplitted.splice(2, 3).join(""),
+        }
+
         const newTask = new todoGenerator(
             titleInput.value,
             detailsInput.value,
-            dueDateInput.value,
+            new Date(date.year, (date.month - 1), date.day),
             priorityCheck()
         );
         tasksList.push(newTask);
+
         // check for the current Project
         const checkCurrentProject = () => {
             const currentProject = e.target.parentElement.parentElement.parentElement.children[2];
             const currentProjectClass = currentProject.classList[0];
             return `.${currentProjectClass}`;
         };
-
         const currentProjectContainer = document.querySelector(checkCurrentProject());
         createTaskHtmlElements(newTask, currentProjectContainer);
         form.remove();
@@ -72,9 +84,9 @@ const createTask = () => {
 
 };
 const generateSampleData = () => {
-    const sampleTask1 = new todoGenerator("Eat", "", "", "low");
-    const sampleTask2 = new todoGenerator("Sleep", "", "", "low");
-    const sampleTask3 = new todoGenerator("Gym", "", "", "normal");
+    const sampleTask1 = new todoGenerator("Eat", "", new Date(), "low");
+    const sampleTask2 = new todoGenerator("Sleep", "", new Date(), "low");
+    const sampleTask3 = new todoGenerator("Gym", "", new Date(), "normal");
     const sampleTasks = [sampleTask1, sampleTask2, sampleTask3];
     const workProjectContainer = document.querySelector(".work-project");
 

@@ -35,6 +35,7 @@ const createProject = () => {
             return;
         }
 
+        // create projectBtn
         const newProjectName = addProjectInput.value;
         const createProjectA = document.createElement("a");
         const createProjectLi = document.createElement("li");
