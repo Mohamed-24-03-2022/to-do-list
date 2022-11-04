@@ -1,8 +1,12 @@
 import { priorityEffect } from "./priority.js";
 import { editTask } from "./editTask.js";
 import { format } from 'date-fns';
+import { tasksList, saveTask } from "./index.js";
+
 
 const createTaskHtmlElements = (newTask, projectContainer) => {
+    if (!projectContainer) return;
+
     // card item
     const cardContainer = document.createElement("div");
     cardContainer.classList.add("card-item");
@@ -86,11 +90,11 @@ const createTaskHtmlElements = (newTask, projectContainer) => {
     editTask(task);
     selectOption.remove();
 };
-
 const checkTask = (checkbox, removeOption) => {
     checkbox.addEventListener("click", () => {
         if (checkbox.checked === true) {
-            removeOption.click();
+            //! removeOption.click();
+            //! make a line-through in the task
         }
     });
 };
@@ -101,12 +105,19 @@ const chooseOption = (task) => {
     });
 };
 const removeTask = (task) => {
-    task.option2.addEventListener("click", () => {
-        task.selectOption.remove();
-        task.cardContainer.remove();
+    task.option2.addEventListener("click", (e) => {
+        const targetedTitle = e.target.parentElement.parentElement.parentElement.childNodes[1].childNodes[0];
+        for (const taskList of tasksList) {
+            if (taskList.title === targetedTitle.textContent) {
+                const index = tasksList.indexOf(taskList);
+                tasksList.splice(index, 1);
+                saveTask();
+                task.cardContainer.remove();
+                task.selectOption.remove();
+            }
+        }
     });
 };
-
 const restartFormValue = () => {
     const titleInput = document.querySelector("#title");
     const detailsInput = document.querySelector("#details");

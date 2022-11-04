@@ -47,6 +47,8 @@ const changeProjects = () => {
     addEventToProjects(studyProjectBtn, studyProjectContainer);
     addEventToProjects(homeProjectBtn, homeProjectContainer);
     addEventToProjects(gymProjectBtn, gymProjectContainer);
+
+    return projects;
 };
 
 

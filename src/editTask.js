@@ -1,9 +1,8 @@
 import { format } from 'date-fns';
-import { tasksList } from "./index.js";
+import { tasksList, saveTask } from "./index.js";
 import { priorityEffect, priorityCheck } from "./priority.js";
 import { restartFormValue } from "./createTaskHtmlElements.js";
 
-const mainContent = document.querySelector(".main-content");
 
 const keepFormValues = (targetTitle) => {
     const titleInput = document.querySelector("#title");
@@ -14,7 +13,6 @@ const keepFormValues = (targetTitle) => {
         normal: document.querySelector("#normal"),
         high: document.querySelector("#high"),
     };
-
     for (const task of tasksList) {
         if (targetTitle === task.title) {
             titleInput.value = task.title;
@@ -33,8 +31,9 @@ const keepFormValues = (targetTitle) => {
 
 const target = {};
 const editTask = (task) => {
+    const mainContent = document.querySelector(".main-content");
     const form = document.querySelector("#form");
-    const editOption = document.querySelector("option.edit");
+    const editOption = task.option1;
     const addBtn = document.querySelector(".add");
 
     editOption.addEventListener("click", (e) => {
@@ -85,11 +84,14 @@ const saveChange = () => {
                 }
                 const unformattedDate = new Date(date.year, (date.month - 1), date.day);
 
-                // updating the task in the storage
+                // updating the task in the array storage
                 taskList.title = titleInput.value;
                 taskList.details = detailsInput.value;
                 taskList.dueDate = unformattedDate;
                 taskList.priority = priorityCheck();
+
+                // updating the task in the local storage
+                saveTask();
 
                 // updating the Dom
                 target.title.textContent = taskList.title;

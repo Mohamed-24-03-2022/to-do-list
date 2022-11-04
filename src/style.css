@@ -159,14 +159,14 @@ ul a {
   justify-content: center;
   align-items: center;
   padding: 15px;
+  margin: 5px;
   cursor: pointer;
 }
 .add-new-task:hover {
   background-color: rgb(245, 240, 220);
 }
-.add-new-task button {
-  background-color: inherit;
-  border: none;
+.add-new-task span {
+  font-size: 1.5rem;
   padding: 0 5px;
 }
 
