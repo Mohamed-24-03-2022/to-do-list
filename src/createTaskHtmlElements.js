@@ -1,7 +1,8 @@
 import { priorityEffect } from "./priority.js";
 import { editTask } from "./editTask.js";
 import { format } from 'date-fns';
-import { tasksList, saveTask } from "./index.js";
+import { saveTask } from "./index.js";
+import { tasksList } from "./retrieveLocalData.js";
 
 
 const createTaskHtmlElements = (newTask, projectContainer) => {

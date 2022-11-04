@@ -1,7 +1,9 @@
 import { format } from 'date-fns';
-import { tasksList, saveTask } from "./index.js";
+import { saveTask } from "./index.js";
 import { priorityEffect, priorityCheck } from "./priority.js";
 import { restartFormValue } from "./createTaskHtmlElements.js";
+import { tasksList } from "./retrieveLocalData.js";
+
 
 
 const keepFormValues = (targetTitle) => {
