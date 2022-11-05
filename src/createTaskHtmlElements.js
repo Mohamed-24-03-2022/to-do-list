@@ -1,9 +1,8 @@
 import { priorityEffect } from "./priority.js";
 import { editTask } from "./editTask.js";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 import { saveTask } from "./index.js";
 import { tasksList } from "./retrieveLocalData.js";
-
 
 const createTaskHtmlElements = (newTask, projectContainer) => {
     if (!projectContainer) return;
@@ -38,8 +37,8 @@ const createTaskHtmlElements = (newTask, projectContainer) => {
     const dueDateContainer = document.createElement("div");
     dueDateContainer.classList.add("due-date");
     const dueDate = document.createElement("p");
-    // date formatting 
-    const formattedDate = format(newTask.dueDate, 'do LLL yy');
+    // date formatting
+    const formattedDate = format(newTask.dueDate, "do LLL yy");
     dueDate.textContent = formattedDate;
     dueDateContainer.prepend(dueDate);
 
@@ -65,7 +64,6 @@ const createTaskHtmlElements = (newTask, projectContainer) => {
     selectOption.prepend(option1, option2);
     settingsContainer.prepend(googleIcon, selectOption);
 
-
     // append all containers into the task
     cardContainer.prepend(
         checkboxContainer,
@@ -77,6 +75,7 @@ const createTaskHtmlElements = (newTask, projectContainer) => {
     // append the task to the main container
     projectContainer.appendChild(cardContainer);
 
+    // exporting data to use it in other functions
     const task = {
         cardContainer,
         googleIcon,
@@ -85,19 +84,40 @@ const createTaskHtmlElements = (newTask, projectContainer) => {
         option1,
         option2,
     };
-    checkTask(checkbox, option2);
+    checkTask(checkbox);
     chooseOption(task);
     removeTask(task);
     editTask(task);
     selectOption.remove();
 };
-const checkTask = (checkbox, removeOption) => {
-    checkbox.addEventListener("click", () => {
+const checkTask = (checkbox) => {
+    checkbox.addEventListener("click", (e) => {
+        const taskCard = e.target.parentElement.parentElement;
+        const taskTitle = e.target.parentElement.parentElement.children[1].children[0];
+        const taskDetails = e.target.parentElement.parentElement.children[1].children[1];
+        const taskDueDate = e.target.parentElement.parentElement.children[2];
+
+        const addCheckedEffect = (boolean, txtDecor) => {
+            taskTitle.style.textDecoration = txtDecor;
+            taskDetails.style.textDecoration = txtDecor;
+            taskDueDate.style.textDecoration = txtDecor;
+
+            tasksList.forEach((task) => {
+                if (task.title === taskTitle.textContent) {
+                    task.isChecked = boolean;
+                    priorityEffect(taskCard, task.priority);
+                }
+            });
+            saveTask();
+        };
         if (checkbox.checked === true) {
-            //! removeOption.click();
-            //! make a line-through in the task
+            addCheckedEffect(true, "line-through", "#00000075");
+            taskCard.style.backgroundColor = "#00000075";
+        } else {
+            addCheckedEffect(false, "none", "#fff");
         }
     });
+
 };
 const chooseOption = (task) => {
     task.googleIcon.addEventListener("click", () => {
@@ -107,7 +127,9 @@ const chooseOption = (task) => {
 };
 const removeTask = (task) => {
     task.option2.addEventListener("click", (e) => {
-        const targetedTitle = e.target.parentElement.parentElement.parentElement.childNodes[1].childNodes[0];
+        const targetedTitle =
+            e.target.parentElement.parentElement.parentElement.childNodes[1]
+                .childNodes[0];
         for (const taskList of tasksList) {
             if (taskList.title === targetedTitle.textContent) {
                 const index = tasksList.indexOf(taskList);

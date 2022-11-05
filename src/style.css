@@ -56,14 +56,25 @@ li.project {
   min-width: 70%;
   padding: 10px;
   cursor: pointer;
+  transition: ease-in-out 200ms;
 }
 li.project:hover {
   border-bottom: 1px solid #000000;
 }
-
 ul a {
   text-decoration: none;
   color: inherit;
+  position: relative;
+}
+ul a span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: ease-in-out 200ms;
+}
+ul a span:hover {
+color: rgba(255, 0, 0, 0.57);
 }
 .new {
   margin-top: 50px;

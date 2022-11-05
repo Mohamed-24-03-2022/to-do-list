@@ -14,7 +14,7 @@ import {
     createProject,
 } from "./createProject.js";
 import { retrieveLocalData, tasksList } from "./retrieveLocalData.js";
-
+import { deleteCustomProjects } from "./deleteCustomProjects.js";
 
 class todoGenerator {
     constructor(title, details, dueDate, priority, project) {
@@ -23,6 +23,7 @@ class todoGenerator {
         this.dueDate = dueDate;
         this.priority = priority;
         this.project = project;
+        this.isChecked = false;
     }
 }
 
@@ -122,6 +123,6 @@ createTask();
 changeProjects();
 retrieveLocalData()
 createProject();
-
+// deleteCustomProjects();
 
 export { saveTask, retrieveTask, generateSampleData };

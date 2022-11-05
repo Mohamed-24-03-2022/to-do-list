@@ -3,6 +3,7 @@ const removeProjects = () => {
     const mainContent = document.querySelector(".main-content");
     for (let i = 1; i <= mainContent.children.length; i++) {
         const element = mainContent.children[i];
+        if (!element) return;
         element.remove();
     }
 };

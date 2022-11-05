@@ -1,6 +1,5 @@
-
 import { removeProjects, addEventToProjects } from "./changeProjects.js";
-
+import { deleteCustomProjects } from "./deleteCustomProjects.js";
 
 let newProjectsContainer = [];
 let newProjectsBtn = [];
@@ -8,17 +7,21 @@ let storedContainerArray = [];
 let storedBtnArray = [];
 
 const saveProjectContainerClass = () => {
-    return localStorage.setItem("ProjectContainerClass", JSON.stringify(storedContainerArray));
-}
+    return localStorage.setItem(
+        "ProjectContainerClass",
+        JSON.stringify(storedContainerArray)
+    );
+};
 const retrieveProjectContainerClass = () => {
     return JSON.parse(localStorage.getItem("ProjectContainerClass"));
-}
+};
+
 const saveProjectBtn = () => {
     return localStorage.setItem("projectBtn", JSON.stringify(storedBtnArray));
-}
+};
 const retrieveProjectBtn = () => {
     return JSON.parse(localStorage.getItem("projectBtn"));
-}
+};
 
 const createProject = () => {
     const mainContent = document.querySelector(".main-content");
@@ -42,7 +45,7 @@ const createProject = () => {
         for (let i = 0; i < newProjectsBtn.length; i++) {
             addEventToProjects(newProjectsBtn[i], newProjectsContainer[i]);
         }
-    }
+    };
 
     addProjectBtn.addEventListener("click", () => {
         // make the form validation work without submitting ti
@@ -56,10 +59,15 @@ const createProject = () => {
         const newProjectName = addProjectInput.value;
         const createProjectA = document.createElement("a");
         const createProjectLi = document.createElement("li");
-        createProjectLi.classList.add("project", newProjectName)
+        createProjectLi.classList.add("project", newProjectName);
         createProjectLi.textContent = newProjectName;
         createProjectA.appendChild(createProjectLi);
         projectsList.appendChild(createProjectA);
+        // create exit icon
+        const exitIcon = document.createElement("span");
+        exitIcon.classList.add("material-symbols-outlined");
+        exitIcon.textContent = "close";
+        createProjectA.appendChild(exitIcon);
 
         // create container
         const projectContainerName = document.createElement("div");
@@ -87,8 +95,11 @@ const createProject = () => {
 
         // hide the input
         addProjectInputContainer.classList.toggle("show");
+
+        // adding delete functionality
+        deleteCustomProjects();
     });
-}
+};
 
 // creating/retrieving stocked projects
 const customProjectsContainer = [];
@@ -101,7 +112,7 @@ const loadingSavedProjects = (className, name) => {
         for (let i = 0; i < newProjectsBtn.length; i++) {
             addEventToProjects(newProjectsBtn[i], newProjectsContainer[i]);
         }
-    }
+    };
 
     // create projectBtn
     const newProjectName = name;
@@ -111,6 +122,11 @@ const loadingSavedProjects = (className, name) => {
     createProjectLi.textContent = newProjectName;
     createProjectA.appendChild(createProjectLi);
     projectsList.appendChild(createProjectA);
+    // create exit icon
+    const exitIcon = document.createElement("span");
+    exitIcon.classList.add("material-symbols-outlined");
+    exitIcon.textContent = "close";
+    createProjectA.appendChild(exitIcon);
 
     // create container
     const projectContainerName = document.createElement("div");
@@ -132,14 +148,19 @@ const loadingSavedProjects = (className, name) => {
     // hide the input
     addProjectInputContainer.classList.toggle("show");
     customProjectsContainer.push(projectContainerName);
+
+    // adding delete functionality
+    deleteCustomProjects();
 };
-
-
 
 export {
     createProject,
+    saveProjectContainerClass,
+    saveProjectBtn,
     retrieveProjectContainerClass,
     retrieveProjectBtn,
     loadingSavedProjects,
     customProjectsContainer,
+    storedContainerArray,
+    storedBtnArray,
 };

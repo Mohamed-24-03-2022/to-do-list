@@ -8,12 +8,32 @@ import {
     customProjectsContainer,
 } from "./createProject.js";
 
-
 let tasksList = [];
 const hideNewProjectContainer = () => {
     const addProjectInputContainer = document.querySelector(".new-project");
-    addProjectInputContainer.classList.add("show")
-}
+    addProjectInputContainer.classList.add("show");
+};
+
+const retrieveCheckedEffect = (storedTask) => {
+    if (storedTask.isChecked === true) {
+        const tasksCards = document.querySelectorAll(".card-item");
+        for (let i = 0; i < tasksCards.length; i++) {
+            const checkBox = tasksCards[i].children[0].children[0];
+            const taskTitle = tasksCards[i].children[1].children[0];
+            const taskDetails = tasksCards[i].children[1].children[1];
+            const taskDueDate = tasksCards[i].children[2];
+
+            if (storedTask.title === taskTitle.textContent) {
+                checkBox.checked = true;
+                tasksCards[i].style.backgroundColor = "#00000075";
+                taskTitle.style.textDecoration = "line-through";
+                taskDetails.style.textDecoration = "line-through";
+                taskDueDate.style.textDecoration = "line-through";
+            }
+        }
+    }
+};
+
 const retrieveLocalData = () => {
     if (localStorage.length === 0) {
         tasksList = [];
@@ -34,7 +54,10 @@ const retrieveLocalData = () => {
             if (!currentProjectClassNames) return;
             for (let i = 0; i < currentProjectClassNames.length; i++) {
                 // this function will create customProjectsContainer to use it later
-                loadingSavedProjects(currentProjectClassNames[i], currentProjectsNames[i]);
+                loadingSavedProjects(
+                    currentProjectClassNames[i],
+                    currentProjectsNames[i]
+                );
             }
         };
         loadProjects();
@@ -44,6 +67,7 @@ const retrieveLocalData = () => {
             // format the date back
             const date = storedTask.dueDate;
             storedTask.dueDate = new Date(date);
+
             if (storedTask.project === "work") {
                 createTaskHtmlElements(storedTask, workProjectContainer);
             } else if (storedTask.project === "study") {
@@ -61,6 +85,8 @@ const retrieveLocalData = () => {
                     }
                 }
             }
+            // retrieve checked task's effect 
+            retrieveCheckedEffect(storedTask);
         });
         hideNewProjectContainer();
     }
