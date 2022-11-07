@@ -2,7 +2,7 @@ const priorityEffect = (cardContainer, priority) => {
     if (priority === "low") {
         cardContainer.style.backgroundColor = "inherit";
     } else if (priority === "normal") {
-        cardContainer.style.backgroundColor = "#00ff0069";
+        cardContainer.style.backgroundColor = "#08ff0061";
     } else if (priority === "high") {
         cardContainer.style.backgroundColor = "#ff000091";
     }

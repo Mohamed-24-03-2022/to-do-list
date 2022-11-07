@@ -7,12 +7,19 @@ const removeProjects = () => {
         element.remove();
     }
 };
-
+const addHoverToBtn = (targetedBtn) => {
+    const projectsBtn = document.querySelectorAll(".project");
+    projectsBtn.forEach(btn => {
+        btn.classList.remove("selected-project");
+    });
+    targetedBtn.classList.add("selected-project");
+}
 const addEventToProjects = (projectBtn, projectContainer) => {
     const mainContent = document.querySelector(".main-content");
     projectBtn.addEventListener("click", (e) => {
         e.preventDefault();
         removeProjects();
+        addHoverToBtn(e.target);
         mainContent.appendChild(projectContainer);
     });
 };

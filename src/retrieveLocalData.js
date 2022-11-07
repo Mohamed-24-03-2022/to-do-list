@@ -25,7 +25,7 @@ const retrieveCheckedEffect = (storedTask) => {
 
             if (storedTask.title === taskTitle.textContent) {
                 checkBox.checked = true;
-                tasksCards[i].style.backgroundColor = "#00000075";
+                tasksCards[i].style.backgroundColor = "#57575775";
                 taskTitle.style.textDecoration = "line-through";
                 taskDetails.style.textDecoration = "line-through";
                 taskDueDate.style.textDecoration = "line-through";

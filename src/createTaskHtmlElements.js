@@ -111,18 +111,36 @@ const checkTask = (checkbox) => {
             saveTask();
         };
         if (checkbox.checked === true) {
-            addCheckedEffect(true, "line-through", "#00000075");
-            taskCard.style.backgroundColor = "#00000075";
+            addCheckedEffect(true, "line-through");
+            taskCard.style.backgroundColor = "#57575775";
         } else {
-            addCheckedEffect(false, "none", "#fff");
+            addCheckedEffect(false, "none");
         }
     });
-
 };
 const chooseOption = (task) => {
     task.googleIcon.addEventListener("click", () => {
+        // hide all other select containers
+        const selectContainers = document.querySelectorAll("#select");
+        selectContainers.forEach(selectContainer => {
+            selectContainer.classList.add("show");
+        });
+        // show/append the select container
         task.selectOption.classList.toggle("show");
         task.settingsContainer.prepend(task.selectOption);
+
+        // disable edit option on checked tasks
+        const targetedTitle = task.cardContainer.children[1].children[0];
+        if (targetedTitle.style.textDecoration === "line-through") {
+            task.option1.disabled = true;
+        } else {
+            task.option1.disabled = false;
+        }
+
+        // auto hide the container 
+        setTimeout(() => {
+            task.selectOption.classList.add("show");
+        }, 1500);
     });
 };
 const removeTask = (task) => {
