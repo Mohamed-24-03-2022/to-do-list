@@ -54,10 +54,7 @@ const retrieveLocalData = () => {
             if (!currentProjectClassNames) return;
             for (let i = 0; i < currentProjectClassNames.length; i++) {
                 // this function will create customProjectsContainer to use it later
-                loadingSavedProjects(
-                    currentProjectClassNames[i],
-                    currentProjectsNames[i]
-                );
+                loadingSavedProjects(currentProjectClassNames[i], currentProjectsNames[i]);
             }
         };
         loadProjects();

@@ -77,6 +77,8 @@ const createTask = () => {
             return currentProjectClass;
         };
 
+        if (!checkCurrentProjectClass()) return;
+
         // check for the current project name
         const currentProjectSplitted = checkCurrentProjectClass().split("");
         const index = currentProjectSplitted.indexOf("-");

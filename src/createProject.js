@@ -1,5 +1,6 @@
 import { removeProjects, addEventToProjects } from "./changeProjects.js";
 import { deleteCustomProjects } from "./deleteCustomProjects.js";
+import { addHoverToBtn } from "./changeProjects.js";
 
 let newProjectsContainer = [];
 let newProjectsBtn = [];
@@ -98,8 +99,12 @@ const createProject = () => {
 
         // adding delete functionality
         deleteCustomProjects();
+
+        // adding hover effect to new created project btn
+        addHoverToBtn(createProjectLi);
     });
 };
+
 
 // creating/retrieving stocked projects
 const customProjectsContainer = [];
@@ -151,6 +156,9 @@ const loadingSavedProjects = (className, name) => {
 
     // adding delete functionality
     deleteCustomProjects();
+
+    // adding hover effect to new created project btn
+    addHoverToBtn(createProjectLi);
 };
 
 export {

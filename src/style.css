@@ -16,6 +16,16 @@ body {
   grid-template-rows: 0.1fr 1fr;
   color: #333;
 }
+/******************* CSS animation ******************/
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 /********************** header ********************/
 .header {
   background-color: antiquewhite;
@@ -77,7 +87,7 @@ ul a:hover {
   background-color: #c0bfbf;
 }
 .selected-project {
-  /*! add it in JS */
+  /* hover effect by js */
   background-color: #c0bfbf;
 }
 ul a span {
@@ -148,6 +158,7 @@ ul a span:hover {
   flex-direction: column;
   gap: 30px;
   margin: 0 15px;
+  animation: fadeIn 1s;
 }
 .card-item {
   display: grid;
@@ -157,10 +168,10 @@ ul a span:hover {
   border: 2px solid #454545;
   user-select: none;
   border-radius: 10px;
+  transition: all 400ms ease-in-out;
 }
 .card-item:hover {
   transform: scale(1.02);
-  transition: all 0.3s ease-in-out;
 }
 .card-item:active {
   transform: scale(0.98);
@@ -192,11 +203,13 @@ ul a span:hover {
   cursor: pointer;
   transform: translateY(-60px) translateX(-73px);
   border-radius: 5px;
+  transition: all 200ms ease-in-out;
+  animation: fadeIn 0.2s;
 }
 #select option {
   padding: 5px 10px;
   border-radius: 5px;
-  transition: 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
 #select option:hover {
   background-color: #d5d5d5;
@@ -228,7 +241,14 @@ form {
   width: 330px;
   padding: 15px;
   background-color: #eee;
-  background-image: linear-gradient(to left bottom, #3333339a, #595959b1, #838383ad, #afafafab, #ddddddb4);
+  background-image: linear-gradient(
+    to left bottom,
+    #3333339a,
+    #595959b1,
+    #838383ad,
+    #afafafab,
+    #ddddddb4
+  );
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -352,3 +372,58 @@ button:before {
 button:-webkit-details-marker {
   display: none;
 }
+
+/************************* checkbox styling *************************/
+input[type="checkbox"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  background: #eee;
+  display: flex;
+  max-width: 40px;
+  min-width: 4px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 3.5em;
+  height: 1.5em;
+  background: #ddd;
+  border-radius: 3em;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+input[type="checkbox"]:checked {
+  background: #333;
+}
+input[type="checkbox"]:after {
+  position: absolute;
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: #fff;
+  -webkit-box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.3);
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
+  left: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked:after {
+  left: calc(100% - 1.5em);
+}
+

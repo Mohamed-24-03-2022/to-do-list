@@ -63,5 +63,6 @@ const changeProjects = () => {
 export {
     changeProjects,
     removeProjects,
-    addEventToProjects
+    addEventToProjects,
+    addHoverToBtn,
 };

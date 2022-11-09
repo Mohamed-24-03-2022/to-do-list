@@ -6,6 +6,7 @@ import {
     storedBtnArray,
 } from "./createProject.js";
 import { saveTask } from "./index.js";
+import { changeProjects } from "./changeProjects.js"
 
 
 const deleteCustomProjects = () => {
@@ -38,6 +39,15 @@ const deleteCustomProjects = () => {
             // remove btn and container from the dom
             targetedProjectBtn.remove();
             targetedProjectContainer.remove();
+
+            //!!!! append the previous project !!!!!!!!!!!!
+            const mainContent = document.querySelector(".main-content");
+            const workProject = document.createElement("div");
+            workProject.textContent = "choose a project";
+
+            mainContent.appendChild(workProject);
+            console.log(workProject);
+
         });
     });
 }

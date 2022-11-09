@@ -124,6 +124,7 @@ const chooseOption = (task) => {
         const selectContainers = document.querySelectorAll("#select");
         selectContainers.forEach(selectContainer => {
             selectContainer.classList.add("show");
+            task.selectOption.style.opacity = "1";
         });
         // show/append the select container
         task.selectOption.classList.toggle("show");
@@ -139,8 +140,9 @@ const chooseOption = (task) => {
 
         // auto hide the container 
         setTimeout(() => {
+            task.selectOption.style.opacity = "0";
             task.selectOption.classList.add("show");
-        }, 1500);
+        }, 2000);
     });
 };
 const removeTask = (task) => {
