@@ -11,13 +11,14 @@ const priorityCheck = () => {
     const lowPriority = document.querySelector("#low");
     const normalPriority = document.querySelector("#normal");
     const highPriority = document.querySelector("#high");
-    if (!lowPriority || !normalPriority || !highPriority) return;
     if (lowPriority.checked === true) {
         return "low";
     } else if (normalPriority.checked === true) {
         return "normal";
     } else if (highPriority.checked === true) {
         return "high";
+    } else if (!lowPriority && !normalPriority && !highPriority) {
+        return;
     }
 };
 

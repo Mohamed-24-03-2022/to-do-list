@@ -9,7 +9,7 @@ import {
 } from "./createProject.js";
 
 let tasksList = [];
-const hideNewProjectContainer = () => {
+const hideAddNewProjectContainer = () => {
     const addProjectInputContainer = document.querySelector(".new-project");
     addProjectInputContainer.classList.add("show");
 };
@@ -61,7 +61,7 @@ const retrieveLocalData = () => {
 
         // loading each task in its own project
         tasksList.forEach((storedTask) => {
-            // format the date back
+            // format the date back to the original format
             const date = storedTask.dueDate;
             storedTask.dueDate = new Date(date);
 
@@ -82,11 +82,11 @@ const retrieveLocalData = () => {
                     }
                 }
             }
-            // retrieve checked task's effect 
+            // retrieve checked task's effect on current project
             retrieveCheckedEffect(storedTask);
         });
-        hideNewProjectContainer();
+        hideAddNewProjectContainer();
     }
 };
 
-export { retrieveLocalData, tasksList };
+export { retrieveLocalData, tasksList, retrieveCheckedEffect };

@@ -1,3 +1,4 @@
+import { retrieveCheckedEffect, tasksList } from "./retrieveLocalData.js";
 
 const removeProjects = () => {
     const mainContent = document.querySelector(".main-content");
@@ -21,6 +22,11 @@ const addEventToProjects = (projectBtn, projectContainer) => {
         removeProjects();
         addHoverToBtn(e.target);
         mainContent.appendChild(projectContainer);
+
+        // retrieve checked task's effect on the chosen project
+        tasksList.forEach(storedTask => {
+            retrieveCheckedEffect(storedTask);
+        });
     });
 };
 

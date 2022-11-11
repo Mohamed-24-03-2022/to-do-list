@@ -20,6 +20,13 @@
         <span class="material-symbols-outlined"> list_alt </span>
         <p>Todo List</p>
       </div>
+      
+    <div class="hamburger-menu">
+       <a href="javascript:void(0);" class="icon" onclick="toggleMenuVisibility()">
+          <i class="fa fa-bars"></i>
+      </a>
+    </div>
+
     </div>
 
     <div class="side-bar">
@@ -30,25 +37,32 @@
         <a href=""> <li class="project gym">Gym</li></a>
 
         <li class="project new">Add a Project</li>
-        <div class="new-project show">
-          <input
-            type="text"
-            name="new-project"
-            id="new-project"
-            minlength="2"
-            maxlength="15"
-            pattern="^[a-zA-Z]*$"
-            required
-          />
-          <button>Add Project</button>
+
+        <div class="add-new-project-container">
+          <div class="new-project show">
+            <input
+              type="text"
+              name="new-project"
+              id="new-project"
+              minlength="2"
+              maxlength="15"
+              pattern="^[a-zA-Z]*$"
+              autocomplete="off"
+              required
+            />
+            <button>Add Project</button>
+          </div>
         </div>
+
         <div class="custom-projects">
           <p>Custom Projects</p>
         </div>
+
       </ul>
     </div>
 
     <div class="main-content">
+
       <!-- Adding a new task -->
       <div class="add-new-task">
         <span class="material-symbols-outlined"> add_circle </span>
@@ -56,7 +70,22 @@
       </div>
 
       <div class="work-project project-container"></div>
+      
     </div>
+
+
+
+    <div class="footer">
+      <p>
+        Copyright © 2022 Mohamed-24-03-2022
+        <a href="https://github.com/mohamed-24-03-2022" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </p>
+    </div>
+
+
+
 
     <!--------------------- form  ---------------->
     <form id="form" action="/">
@@ -68,13 +97,14 @@
           id="title"
           minlength="2"
           maxlength="15"
-          pattern="^[a-zA-Z]*$"
+          pattern="^[A-Za-z\s]*$"
+          autocomplete="off"
           required
         />
       </div>
       <div class="details">
         <label for="details">Details: (optional)</label>
-        <input type="text" name="details" id="details" />
+        <input type="textarea" name="details" id="details" />
       </div>
 
       <div class="priority">
@@ -103,5 +133,28 @@
         <button class="cancel" type="button">Cancel</button>
       </div>
     </form>
+
+
+
+    <script>      
+      const menu = document.querySelector(".side-bar");
+      const mainContent = document.querySelector(".main-content");
+
+      const toggleMenuVisibility = ()=>{
+        menu.classList.toggle("hide");
+        mainContent.classList.toggle("main-content-with-menu-shown");
+      }
+      window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        menu.classList.remove("hide");
+        mainContent.classList.remove("main-content-with-menu-shown");
+      }
+      });
+
+
+
+    </script>
+    <script src="https://kit.fontawesome.com/4beab0cc1e.js" crossorigin="anonymous"></script>
+
   </body>
 </html>

@@ -40,14 +40,9 @@ const deleteCustomProjects = () => {
             targetedProjectBtn.remove();
             targetedProjectContainer.remove();
 
-            //!!!! append the previous project !!!!!!!!!!!!
-            const mainContent = document.querySelector(".main-content");
-            const workProject = document.createElement("div");
-            workProject.textContent = "choose a project";
-
-            mainContent.appendChild(workProject);
-            console.log(workProject);
-
+            // append the default project "work project"
+            const workProjectBtn = document.querySelector("li.work");
+            workProjectBtn.click();
         });
     });
 }
