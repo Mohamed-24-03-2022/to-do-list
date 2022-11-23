@@ -75,7 +75,7 @@ body {
   padding: 10px;
   background-color: #ddd;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  transition: all 200ms ease-in-out;
+  transition: all 500ms ease-in-out;
 }
 ul {
   display: flex;
@@ -191,6 +191,7 @@ ul a span:hover {
   user-select: none;
   border-radius: 10px;
   transition: all 400ms ease-in-out;
+  animation: fadeIn 1s;
 }
 .card-item:hover {
   transform: scale(1.02);
@@ -245,7 +246,7 @@ ul a span:hover {
   margin: 15px 5px;
   cursor: pointer;
   border-radius: 10px;
-  transition: ease-in-out 200ms;
+  transition: ease-in-out 400ms;
 }
 .add-new-task:hover {
   background-color: #ddd;
@@ -279,6 +280,7 @@ form {
   border-radius: 10px;
   box-shadow: #000000ad 0px 5px 10px;
   z-index: 1;
+  animation: fadeIn 500ms;
 }
 form input {
   font-family: inherit;
