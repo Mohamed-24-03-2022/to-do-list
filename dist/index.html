@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
     <!-- google font -->
     <link
       rel="stylesheet"
@@ -20,13 +20,16 @@
         <span class="material-symbols-outlined"> list_alt </span>
         <p>Todo List</p>
       </div>
-      
-    <div class="hamburger-menu">
-       <a href="javascript:void(0);" class="icon" onclick="toggleMenuVisibility()">
-          <i class="fa fa-bars"></i>
-      </a>
-    </div>
 
+      <div class="hamburger-menu">
+        <a
+          href="javascript:void(0);"
+          class="icon"
+          onclick="toggleMenuVisibility()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
     </div>
 
     <div class="side-bar">
@@ -57,12 +60,10 @@
         <div class="custom-projects">
           <p>Custom Projects</p>
         </div>
-
       </ul>
     </div>
 
     <div class="main-content">
-
       <!-- Adding a new task -->
       <div class="add-new-task">
         <span class="material-symbols-outlined"> add_circle </span>
@@ -70,10 +71,7 @@
       </div>
 
       <div class="work-project project-container"></div>
-      
     </div>
-
-
 
     <div class="footer">
       <p>
@@ -83,9 +81,6 @@
         </a>
       </p>
     </div>
-
-
-
 
     <!--------------------- form  ---------------->
     <form id="form" action="/">
@@ -134,27 +129,24 @@
       </div>
     </form>
 
-
-
-    <script>      
+    <script>
       const menu = document.querySelector(".side-bar");
       const mainContent = document.querySelector(".main-content");
 
-      const toggleMenuVisibility = ()=>{
+      const toggleMenuVisibility = () => {
         menu.classList.toggle("hide");
         mainContent.classList.toggle("main-content-with-menu-shown");
-      }
-      window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        menu.classList.remove("hide");
-        mainContent.classList.remove("main-content-with-menu-shown");
-      }
+      };
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+          menu.classList.remove("hide");
+          mainContent.classList.remove("main-content-with-menu-shown");
+        }
       });
-
-
-
     </script>
-    <script src="https://kit.fontawesome.com/4beab0cc1e.js" crossorigin="anonymous"></script>
-
+    <script
+      src="https://kit.fontawesome.com/4beab0cc1e.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

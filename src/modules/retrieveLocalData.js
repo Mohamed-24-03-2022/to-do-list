@@ -1,41 +1,21 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 /* eslint-disable import/no-cycle */
-import { retrieveTask, generateSampleData } from './index';
+import { retrieveTask } from './localStorageApi';
+import generateSampleData from './generateSampleData';
 import { changeProjects } from './changeProjects';
-import { createTaskHtmlElements } from './createTaskHtmlElements';
+import createTaskHtmlElements from './createTaskHtmlElements';
+import { loadingSavedProjects, customProjectsContainer } from './createProject';
+import tasksList from './tasksList';
+import retrieveCheckedEffect from './retrieveCheckedEffect';
 import {
   retrieveProjectContainerClass,
   retrieveProjectBtn,
-  loadingSavedProjects,
-  customProjectsContainer,
-} from './createProject';
-
-const tasksList = [];
+} from './projectsData';
 
 const hideAddNewProjectContainer = () => {
   const addProjectInputContainer = document.querySelector('.new-project');
   addProjectInputContainer.classList.add('show');
-};
-
-const retrieveCheckedEffect = (storedTask) => {
-  if (storedTask.isChecked === true) {
-    const tasksCards = document.querySelectorAll('.card-item');
-    for (let i = 0; i < tasksCards.length; i++) {
-      const checkBox = tasksCards[i].children[0].children[0];
-      const taskTitle = tasksCards[i].children[1].children[0];
-      const taskDetails = tasksCards[i].children[1].children[1];
-      const taskDueDate = tasksCards[i].children[2];
-
-      if (storedTask.title === taskTitle.textContent) {
-        checkBox.checked = true;
-        tasksCards[i].style.backgroundColor = '#57575775';
-        taskTitle.style.textDecoration = 'line-through';
-        taskDetails.style.textDecoration = 'line-through';
-        taskDueDate.style.textDecoration = 'line-through';
-      }
-    }
-  }
 };
 
 const retrieveLocalData = () => {
@@ -98,4 +78,4 @@ const retrieveLocalData = () => {
   }
 };
 
-export { retrieveLocalData, tasksList, retrieveCheckedEffect };
+export default retrieveLocalData;
